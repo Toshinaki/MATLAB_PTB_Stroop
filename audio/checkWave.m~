@@ -1,0 +1,34 @@
+commandwindow;
+
+deviceid = 2;
+freq = 48000;
+channels = [1, 1];
+maxlen = 5;
+
+pahandle = PsychPortAudio('Open', deviceid, 2, 0, freq, channels);
+PsychPortAudio('GetAudioData', pahandle, maxlen+1);
+
+fprintf('Press any key to start ...\n');
+KbStrokeWait;
+
+PsychPortAudio('Start', pahandle, 0, 0, 1);
+fprintf('Audio capture started\n');
+
+recordedaudio = [];
+s = PsychPortAudio('GetStatus', pahandle);
+
+WaitSecs(5);
+
+% Stop capture:
+PsychPortAudio('Stop', pahandle);
+
+% Get data
+audiodata = PsychPortAudio('GetAudioData', pahandle);
+
+% show data
+max(abs(audiodata(1, :)))
+
+nrsamples = size(audiodata, 2);
+
+plot(1:nrsamples, audiodata(1, :), 'b');
+drawnow;
