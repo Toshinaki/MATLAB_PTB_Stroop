@@ -23,15 +23,13 @@ pfolder = [mainFolder '/' num2str(id) '/'];
   % file for participant information
 ct = fix(clock);
 ct = sprintf('%4d%02d%02d%02d%02d', ct(1:end-1));
-partinfo = {['ID,' num2str(id)] ['DATE,' ct] 'NAME' 'GENDER' 'AGE' 'STROOP' 'CAMERA'};
+partinfo = {['ID,' num2str(id)] ['DATE,' ct] 'NAME' 'GENDER' 'AGE'};
   % file for stroop
 strp = {'Trial #, Color Name, Real Color, Responded?, Which?, Correct?, Onset Time, Response Time, Delay'};
-  % file for emotion regulation
-emrgl = {'Pic #, Pic Emotion, Response'};
 
-files = {ct 'stroop' 'sam' 'mood1' 'mood2' 'questnr'};
+files = {ct 'stroop'};
 % Contents
-ctn = {partinfo strp emrgl {''} {''} {''}};
+ctn = {partinfo strp};
 
 fprintf('[+] Generating folder audio/......\n');
 mkdir(pfolder, 'audio');
